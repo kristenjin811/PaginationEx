@@ -12,6 +12,7 @@ export class PaginatorComponent implements OnInit {
   currentPage = 1;
   @Output() pageChanged = new EventEmitter<number>();
   pagesToShow = 5;
+  perPageOptions = [5, 10, 25];
 
   constructor(private httpService: HttpService) { }
 
@@ -26,8 +27,17 @@ export class PaginatorComponent implements OnInit {
     });
   }
 
+  onItemsPerPageChange(event: Event) {
+    this.itemsPerPage = Number((event.target as HTMLSelectElement).value);
+    this.pageChanged.emit(this.currentPage); // this will reflect changes on your paginator
+  }
+  
   get totalPages(): number {
     return Math.ceil(this.totalItems / this.itemsPerPage);
+  }
+
+  get getTotalItems(): number {
+    return this.totalItems
   }
 
   get pages(): any[] {
@@ -74,4 +84,11 @@ export class PaginatorComponent implements OnInit {
     this.currentPage = page;
     this.pageChanged.emit(page);
   }
+
+  getItemRange(): string {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage + 1;
+    const endIndex = Math.min(startIndex + this.itemsPerPage - 1, this.totalItems);
+    return `${startIndex} - ${endIndex}`;
+  }
+  
 }

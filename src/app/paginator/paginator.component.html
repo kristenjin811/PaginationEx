@@ -1,3 +1,14 @@
+<div class="item-range">
+ {{ getItemRange() }} of {{ getTotalItems }} 
+</div>
+
+
+<select [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange($event)">
+<option *ngFor="let option of perPageOptions" [value]="option">{{option}}</option>
+</select> items per page
+
+
+
 <div class="paginator">
 <button [disabled]="currentPage === 1" (click)="onPageChanged(1)"><<</button>
 <button [disabled]="currentPage === 1" (click)="onPageChanged(currentPage - 1)"><</button>
