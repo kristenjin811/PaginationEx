@@ -1,0 +1,24 @@
+.paginator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+button[disabled] {
+  color: rgba(0, 0, 0, 0.26);
+  background-color: rgba(0, 0, 0, 0.12);
+}
+.paginator-container {
+  display: flex;
+  justify-content: space-between;
+  width: 400px; /* adjust this to your liking */
+  padding: 0 20px; /* adjust this to your liking */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.page-btn {
+  flex: 1;
+  text-align: center;
+}

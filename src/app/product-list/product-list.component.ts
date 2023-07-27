@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { HttpService } from '../paginator/http.service';
 import { products } from '../products';
 
 @Component({
@@ -10,14 +10,25 @@ import { products } from '../products';
 export class ProductListComponent {
   products = [...products];
 
-  share() {
-    window.alert('The product has been shared!');
+  todos: any[] = [];
+  currentPage = 1;
+  itemsPerPage = 5;
+
+  constructor(private httpService: HttpService) { }
+
+  ngOnInit(): void {
+    this.fetchItems();
+  }
+
+  fetchItems() {
+    this.httpService.fetchTodos().subscribe(todos => {
+      this.todos = todos.slice((this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
+    });
+  }
+
+  handlePageChange(page: number) {
+    this.currentPage = page;
+    this.fetchItems();
   }
 }
 
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/

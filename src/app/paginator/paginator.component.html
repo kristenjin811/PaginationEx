@@ -1,0 +1,13 @@
+<div class="paginator">
+<button [disabled]="currentPage === 1" (click)="onPageChanged(1)"><<</button>
+<button [disabled]="currentPage === 1" (click)="onPageChanged(currentPage - 1)"><</button>
+
+<ng-container *ngFor="let page of pages">
+  <button *ngIf="page !== '...'" [disabled]="currentPage === page" (click)="onPageChanged(page)">{{ page }}</button>
+  <span *ngIf="page === '...'">...</span>
+</ng-container>
+
+<button [disabled]="currentPage === totalPages" (click)="onPageChanged(currentPage + 1)">></button>
+<button [disabled]="currentPage === totalPages" (click)="onPageChanged(totalPages)">>></button>
+</div>
+
